@@ -3,6 +3,8 @@ ceci est mon 2eme  test
 AssMonkey
 Assface
 testdebadwords
+nouveautestbadwords
+encorenouveaute
 Biatch
 BlowJob
 CarpetMuncher
