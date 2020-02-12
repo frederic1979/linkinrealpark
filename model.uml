@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>simplon.co.linkinreal.model</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">simplon.co.linkinreal.model.Creator</node>
+    <node x="197.0" y="12.0">simplon.co.linkinreal.model.EventCategory</node>
+    <node x="56.5" y="176.0">simplon.co.linkinreal.model.Event</node>
+    <node x="98.5" y="448.0">simplon.co.linkinreal.model.Place</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="simplon.co.linkinreal.model.Event" target="simplon.co.linkinreal.model.Place">
+      <point x="65.25" y="111.0" />
+      <point x="252.25" y="423.0" />
+      <point x="231.25" y="423.0" />
+      <point x="44.25" y="-87.0" />
+    </edge>
+    <edge source="simplon.co.linkinreal.model.Creator" target="simplon.co.linkinreal.model.Event">
+      <point x="44.25" y="63.0" />
+      <point x="132.75" y="151.0" />
+      <point x="154.375" y="151.0" />
+      <point x="-32.625" y="-111.0" />
+    </edge>
+    <edge source="simplon.co.linkinreal.model.EventCategory" target="simplon.co.linkinreal.model.Event">
+      <point x="44.25" y="51.0" />
+      <point x="329.75" y="151.0" />
+      <point x="284.875" y="151.0" />
+      <point x="97.875" y="-111.0" />
+    </edge>
+    <edge source="simplon.co.linkinreal.model.Event" target="simplon.co.linkinreal.model.EventCategory">
+      <point x="32.625" y="-111.0" />
+      <point x="219.625" y="151.0" />
+      <point x="241.25" y="151.0" />
+      <point x="-44.25" y="51.0" />
+    </edge>
+    <edge source="simplon.co.linkinreal.model.Place" target="simplon.co.linkinreal.model.Event">
+      <point x="-44.25" y="-87.0" />
+      <point x="142.75" y="423.0" />
+      <point x="121.75" y="423.0" />
+      <point x="-65.25" y="111.0" />
+    </edge>
+    <edge source="simplon.co.linkinreal.model.Event" target="simplon.co.linkinreal.model.Creator">
+      <point x="-97.875" y="-111.0" />
+      <point x="89.125" y="151.0" />
+      <point x="44.25" y="151.0" />
+      <point x="-44.25" y="63.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="113.5" y="325.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
