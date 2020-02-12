@@ -1,8 +1,6 @@
 package simplon.co.linkinreal.model;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Entity
