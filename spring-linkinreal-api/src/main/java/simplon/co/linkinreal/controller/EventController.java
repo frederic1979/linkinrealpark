@@ -1,5 +1,6 @@
 package simplon.co.linkinreal.controller;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import simplon.co.linkinreal.exception.EventExceptionNotFound;
@@ -65,5 +66,3 @@ public class EventController {
         }
     }
 
-
-}
