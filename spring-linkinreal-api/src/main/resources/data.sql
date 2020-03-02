@@ -1,3 +1,6 @@
+
+
+
 insert into creator (id, nick_name, email) values (creator_seq_id.nextval, 'Georges', 'georges.lebon@gmail.com');
 insert into creator (id, nick_name, email) values (creator_seq_id.nextval, 'Serge', 'serge.simplon@gmail.com');
 insert into creator (id, nick_name, email) values (creator_seq_id.nextval, 'David', 'david.simplon@gmail.com');
