@@ -1,5 +1,7 @@
 package simplon.co.linkinreal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Creator {
 
     @Column(nullable = false)
     private String email;
+
 
     @OneToMany(mappedBy = "creator")
     private List<Event> events = new ArrayList<>();
