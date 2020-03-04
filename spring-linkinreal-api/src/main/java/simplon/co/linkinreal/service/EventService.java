@@ -1,13 +1,9 @@
 package simplon.co.linkinreal.service;
+import org.springframework.data.domain.Page;
 
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import simplon.co.linkinreal.model.Event;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface EventService {
@@ -18,9 +14,9 @@ public interface EventService {
      *
      * @return the complete list from persistence layer.
      */
-    List<Event> getEvents();
+    Page<Event> getEvents(Integer pageNumber, Integer pageSize, String criteria, String direction);
 
-    Optional<Event> getEventById(Long eventId);
+    Event getEventById(Long eventId);
 
     Event createEvent(Event event);
 

@@ -1,8 +1,11 @@
 package simplon.co.linkinreal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 public class Place {
@@ -20,6 +23,7 @@ public class Place {
 
     private int postalCode;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<Event> events = new ArrayList<>();
 

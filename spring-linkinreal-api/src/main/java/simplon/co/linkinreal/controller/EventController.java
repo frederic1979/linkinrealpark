@@ -1,13 +1,16 @@
 package simplon.co.linkinreal.controller;
 
 
+import io.swagger.annotations.ApiParam;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import simplon.co.linkinreal.exception.EventExceptionNotFound;
 import simplon.co.linkinreal.model.Event;
 import simplon.co.linkinreal.service.EventService;
 
-import java.util.List;
+
+import javax.validation.Valid;
 
 @RestController//Pour que Spring reconnaisse le Controller ?
 @RequestMapping("api/linkinreal/events")
@@ -21,19 +24,22 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping()
-    public List<Event> getEvents() {
-        return eventService.getEvents();
+    @GetMapping
+    public Page<Event> getEvents(
+            @ApiParam(value = "Query param for 'pageNumber'") @Valid @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+            @ApiParam(value = "Query param for 'pageSize'") @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @ApiParam(value = "Query param for 'sort' criteria") @Valid @RequestParam(value = "sort", required = false) String criteria,
+            @ApiParam(value = "Query param for 'sort' direction") @Valid @RequestParam(value = "direction", required = false) String direction) {
+
+        return eventService.getEvents(pageNumber, pageSize, criteria, direction);
+
     }
 
 
     @GetMapping("{eventId}")
-    public ResponseEntity<Event> getEventById(@PathVariable Long eventId) {
-        if (eventService.getEventById(eventId).isPresent()) {
-            return ResponseEntity.ok(eventService.getEventById(eventId).get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Event getEventById(@PathVariable Long eventId) {
+        return eventService.getEventById(eventId);
+
     }
 
     @PostMapping
@@ -65,4 +71,10 @@ public class EventController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+
+
+
 }
+

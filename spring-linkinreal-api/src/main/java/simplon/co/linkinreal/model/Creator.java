@@ -20,6 +20,7 @@ public class Creator {
     @Column(nullable = false)
     private String email;
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "creator")
     private List<Event> events = new ArrayList<>();

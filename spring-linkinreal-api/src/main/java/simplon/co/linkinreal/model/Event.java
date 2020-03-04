@@ -1,5 +1,7 @@
 package simplon.co.linkinreal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -22,8 +24,10 @@ public class Event {
     @ManyToOne
     private Creator creator;
 
+
     @ManyToOne
     private EventCategory eventCategory;
+
 
     @ManyToOne
     private Place place;
