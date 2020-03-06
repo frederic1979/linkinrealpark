@@ -24,10 +24,8 @@ public class Event {
     @ManyToOne
     private Creator creator;
 
-
     @ManyToOne
     private EventCategory eventCategory;
-
 
     @ManyToOne
     private Place place;
