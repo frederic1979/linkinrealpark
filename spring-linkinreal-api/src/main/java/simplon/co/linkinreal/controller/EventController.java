@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 @RestController//Pour que Spring reconnaisse le Controller ?
 @RequestMapping("api/linkinreal/events")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 public class EventController {
 
     private EventService eventService;
