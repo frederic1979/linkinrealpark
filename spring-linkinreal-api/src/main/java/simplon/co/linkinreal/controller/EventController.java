@@ -47,6 +47,8 @@ public class EventController {
         try {
             return ResponseEntity.ok(eventService.createEvent(event));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
             return ResponseEntity.badRequest().build();
         }
     }
