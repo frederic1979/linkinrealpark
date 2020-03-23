@@ -21,13 +21,13 @@ public class Event {
     @Column(nullable = false)
     private int participantNb ;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Creator creator;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private EventCategory eventCategory;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Place place;
 
     public Long getId() {
