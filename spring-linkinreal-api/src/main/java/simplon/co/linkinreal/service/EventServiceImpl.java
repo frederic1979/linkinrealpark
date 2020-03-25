@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import simplon.co.linkinreal.exception.EntityNotFoundException;
 import simplon.co.linkinreal.exception.EventExceptionNotFound;
 import simplon.co.linkinreal.model.Event;
+import simplon.co.linkinreal.model.EventCategory;
+import simplon.co.linkinreal.repository.EventCategoryRepository;
 import simplon.co.linkinreal.repository.EventRepository;
 
 import java.lang.reflect.Field;
@@ -19,10 +21,13 @@ import java.util.Optional;
 public class EventServiceImpl implements EventService {
 
     private EventRepository eventRepository;
+    private EventCategoryRepository eventCategoryRepository;
 
     //Constructeur, injection de dépendances repository dans eventRepository (attribut)
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository,
+                            EventCategoryRepository eventCategoryRepository) {
         this.eventRepository = eventRepository;
+        this.eventCategoryRepository = eventCategoryRepository;
     }
 
 
@@ -69,7 +74,32 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event createEvent(Event event) {
-        return eventRepository.save(event);
+        /*getting the specific EventCategory (and Id) associated with its category value*/
+        Optional<EventCategory> optionalEventCategory =
+                eventCategoryRepository.findByCategory(event.getEventCategory().getCategory());
+
+
+        if (optionalEventCategory.isPresent()){
+
+            EventCategory eventCategoryToUpdate = optionalEventCategory.get();
+
+            /*Creating an Event Object with the EventCategory Object already in DB*/
+            /*The category String value is the same in DB than in the POST, but here, we */
+            /*search for the specific object EventCategory in DB with its specific Id */
+            Event eventToPersist = new Event();
+
+            eventToPersist.setDate(event.getDate());
+            eventToPersist.setDescription(event.getDescription());
+            eventToPersist.setParticipantNb(event.getParticipantNb());
+            eventToPersist.setCreator(event.getCreator());
+            eventToPersist.setPlace(event.getPlace());
+            eventToPersist.setEventCategory(eventCategoryToUpdate);
+
+            return eventRepository.save(eventToPersist);
+
+        } else {
+            return eventRepository.save(event);
+        }
     }
 
 
@@ -91,3 +121,13 @@ public class EventServiceImpl implements EventService {
     }
 
 }
+
+
+//            Event eventToSave =  eventRepository.save(eventToPersist);
+
+/*updating EventCategory Object adding the Event created in the list of Events */
+//            EventCategory eventCategoryToUpdate = optionalEventCategory.get();
+//            List<Event> events = eventCategoryToUpdate.getEvents();
+//            events.add(eventToSave);
+//            eventCategoryToUpdate.setEvents(events);
+//            eventCategoryRepository.save(eventCategoryToUpdate);

@@ -23,6 +23,8 @@ public class Place {
 
     private int postalCode;
 
+    private String city;
+
     @JsonIgnore
     @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     private List<Event> events = new ArrayList<>();
@@ -65,6 +67,14 @@ public class Place {
 
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public List<Event> getEvents() {
