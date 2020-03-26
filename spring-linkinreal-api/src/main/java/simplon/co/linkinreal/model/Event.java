@@ -21,6 +21,9 @@ public class Event {
     @Column(nullable = false)
     private int participantNb ;
 
+    /*@OneToMany
+    private List<Participant> participants = new ArrayList<>();*/
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Creator creator;
 
