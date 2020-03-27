@@ -7,8 +7,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import simplon.co.linkinreal.exception.EntityNotFoundException;
 import simplon.co.linkinreal.exception.EventExceptionNotFound;
+import simplon.co.linkinreal.model.Creator;
 import simplon.co.linkinreal.model.Event;
 import simplon.co.linkinreal.model.EventCategory;
+import simplon.co.linkinreal.repository.CreatorRepository;
 import simplon.co.linkinreal.repository.EventCategoryRepository;
 import simplon.co.linkinreal.repository.EventRepository;
 
@@ -22,12 +24,15 @@ public class EventServiceImpl implements EventService {
 
     private EventRepository eventRepository;
     private EventCategoryRepository eventCategoryRepository;
+    private CreatorRepository creatorRepository;
 
     //Constructeur, injection de dépendances repository dans eventRepository (attribut)
     public EventServiceImpl(EventRepository eventRepository,
-                            EventCategoryRepository eventCategoryRepository) {
+                            EventCategoryRepository eventCategoryRepository,
+                            CreatorRepository creatorRepository) {
         this.eventRepository = eventRepository;
         this.eventCategoryRepository = eventCategoryRepository;
+        this.creatorRepository = creatorRepository;
     }
 
 
@@ -71,32 +76,50 @@ public class EventServiceImpl implements EventService {
         else throw new EntityNotFoundException("The event with ID: " + eventId + " cannot be found in DB", "Event");
     }
 
-
+    /**
+     * Persisting an Event.
+     * If the category attribute from EventCategory model or the nicName/email from Creator model
+     * already exists in DB, they are not created, but only linked to the Event persisted
+     * @param event the Event to Persist
+     * @return the Event persisted
+     */
     @Override
     public Event createEvent(Event event) {
-        /*getting the specific EventCategory (and Id) associated with its category value*/
+        /*getting the specific EventCategory (and Id) associated with the category retrieved in the POST*/
         Optional<EventCategory> optionalEventCategory =
                 eventCategoryRepository.findByCategory(event.getEventCategory().getCategory());
 
+        /*getting the specific Creator (and Id) associated with the nickName and email retrieved in the POST*/
+        Optional<Creator> optionalCreator =
+                creatorRepository.findByNickNameAndEmail(event.getCreator().getNickName(), event.getCreator().getEmail());
 
-        if (optionalEventCategory.isPresent()){
+        /*if the category or the nicName/email is already present in DB */
+        if (optionalEventCategory.isPresent() | optionalCreator.isPresent()){
 
-            EventCategory eventCategoryToUpdate = optionalEventCategory.get();
-
-            /*Creating an Event Object with the EventCategory Object already in DB*/
-            /*The category String value is the same in DB than in the POST, but here, we */
-            /*search for the specific object EventCategory in DB with its specific Id */
+           /*Creating an new Event Object with attributes retrieved from the POST request*/
             Event eventToPersist = new Event();
-
             eventToPersist.setDate(event.getDate());
             eventToPersist.setDescription(event.getDescription());
             eventToPersist.setParticipantNb(event.getParticipantNb());
-            eventToPersist.setCreator(event.getCreator());
             eventToPersist.setPlace(event.getPlace());
-            eventToPersist.setEventCategory(eventCategoryToUpdate);
 
+            /* If the category String value of the event we want to create already exists in DB,
+            we search for the specific object EventCategory in DB with its specific Id
+             and affect it to the EventCategory of the Event we want to create*/
+            if (optionalEventCategory.isPresent()){
+                EventCategory eventCategoryToUpdate = optionalEventCategory.get();
+                eventToPersist.setEventCategory(eventCategoryToUpdate);
+            } else {
+                eventToPersist.setEventCategory(event.getEventCategory());
+            }
+            /* idem if the creator is already existing in Database */
+            if (optionalCreator.isPresent()){
+                Creator creatorToUpdate = optionalCreator.get();
+                eventToPersist.setCreator(creatorToUpdate);
+            } else {
+                eventToPersist.setCreator(event.getCreator());
+            }
             return eventRepository.save(eventToPersist);
-
         } else {
             return eventRepository.save(event);
         }
@@ -121,13 +144,3 @@ public class EventServiceImpl implements EventService {
     }
 
 }
-
-
-//            Event eventToSave =  eventRepository.save(eventToPersist);
-
-/*updating EventCategory Object adding the Event created in the list of Events */
-//            EventCategory eventCategoryToUpdate = optionalEventCategory.get();
-//            List<Event> events = eventCategoryToUpdate.getEvents();
-//            events.add(eventToSave);
-//            eventCategoryToUpdate.setEvents(events);
-//            eventCategoryRepository.save(eventCategoryToUpdate);
