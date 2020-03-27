@@ -1,7 +1,5 @@
 package simplon.co.linkinreal.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

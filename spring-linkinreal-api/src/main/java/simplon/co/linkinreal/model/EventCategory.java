@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Table(indexes = @Index(columnList = "category", unique = true))
 public class EventCategory {
 
     @Id

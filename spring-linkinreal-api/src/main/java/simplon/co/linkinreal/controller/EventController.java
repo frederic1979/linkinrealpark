@@ -42,13 +42,16 @@ public class EventController {
 
     }
 
+    /**
+     * Controller method receiving the Event to persist in a POST http request
+     * @param event the Event to persist
+     * @return a Response Entity with the Event created (if ok) or a Badrequest 400 status (if ko)
+     */
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         try {
             return ResponseEntity.ok(eventService.createEvent(event));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getCause());
             return ResponseEntity.badRequest().build();
         }
     }
