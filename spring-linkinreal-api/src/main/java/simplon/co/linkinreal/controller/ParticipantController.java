@@ -34,7 +34,6 @@ public class ParticipantController {
     @PostMapping
     public ResponseEntity<?> createParticipant(@RequestBody ParticipantDto participant) {
         try {
-            System.out.println("dans controller participantDto : "+ participant.toString());
             return ResponseEntity.ok(participantService.createParticipant(participant));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

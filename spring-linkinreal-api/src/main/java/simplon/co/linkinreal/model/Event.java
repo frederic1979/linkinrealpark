@@ -1,9 +1,12 @@
 package simplon.co.linkinreal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -18,11 +21,13 @@ public class Event {
 
     private String description;
 
-    @Column(nullable = false)
-    private int participantNb ;
+    @Column
+    private int participantNb;
 
-    /*@OneToMany
-    private List<Participant> participants = new ArrayList<>();*/
+
+    @JsonIgnore
+    @OneToMany (mappedBy = "event")
+    private List<Participant> participants = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Creator creator;
@@ -32,6 +37,8 @@ public class Event {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Place place;
+
+
 
     public Long getId() {
         return id;
@@ -47,6 +54,14 @@ public class Event {
 
     public int getParticipantNb() {
         return participantNb;
+    }
+
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
     }
 
     public Creator getCreator() {
