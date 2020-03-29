@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface EventCategoryRepository extends JpaRepository<EventCategory,Long> {
 
+    /*searching if a Creator with a specific category attribute already exists */
     Optional<EventCategory> findByCategory(String categoryToSearch);
 }

@@ -2,7 +2,6 @@ package simplon.co.linkinreal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Value;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
