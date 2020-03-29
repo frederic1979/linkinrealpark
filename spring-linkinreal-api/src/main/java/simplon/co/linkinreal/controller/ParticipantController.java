@@ -20,26 +20,34 @@ public class ParticipantController {
 
 
     @GetMapping
-    public List<Participant> getParticipant(){
+    public List<Participant> getParticipant() {
         return participantService.getParticipant();
     }
 
 
     @GetMapping("/{eventId}")
-    public List<Participant> getParticipantsByEventId(@PathVariable Long eventId){
-        System.out.println("dans mon controller"+participantService.findParticipantsByEventId(eventId));
+    public List<Participant> getParticipantsByEventId(@PathVariable Long eventId) {
+        System.out.println("dans mon controller" + participantService.findParticipantsByEventId(eventId));
         return participantService.findParticipantsByEventId(eventId);
     }
 
     @PostMapping
     public ResponseEntity<?> createParticipant(@RequestBody ParticipantDto participant) {
         try {
-            System.out.println("dans controller participantDto : "+ participant.toString());
             return ResponseEntity.ok(participantService.createParticipant(participant));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
+    @DeleteMapping("{participantId}")
+    public ResponseEntity<Participant> deleteEvent(@PathVariable Long participantId) {
+        if (participantService.deleteParticipant(participantId)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 
 }

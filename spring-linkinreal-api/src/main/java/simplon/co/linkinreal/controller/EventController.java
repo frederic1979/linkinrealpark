@@ -59,8 +59,6 @@ public class EventController {
     @PutMapping("{eventId}")
     public ResponseEntity<Event> updateEvent(@RequestBody Event event, @PathVariable Long eventId) {
         try {
-            /*eventService.update(event, eventId);
-            return ResponseEntity.ok().build();*/
 
             return ResponseEntity.ok(eventService.updateEvent(event, eventId));
         } catch (EventExceptionNotFound e) {

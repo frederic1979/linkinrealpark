@@ -2,9 +2,11 @@ package simplon.co.linkinreal.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import simplon.co.linkinreal.dto.ParticipantDto;
 import simplon.co.linkinreal.mappers.ParticipantMapper;
+import simplon.co.linkinreal.model.Event;
 import simplon.co.linkinreal.model.Participant;
 import simplon.co.linkinreal.repository.ParticipantRepository;
 
@@ -21,15 +23,21 @@ public class ParticipantServiceImpl implements ParticipantService {
     ParticipantMapper participantMapper;
 
 
-
-
-
     @Override
-    public ParticipantDto createParticipant(ParticipantDto participantDto){
-        System.out.println("dans service Impl : ");
-        Participant participant = participantRepository.save(participantMapper.toEntity(participantDto));
+    public ResponseEntity<?> createParticipant(ParticipantDto participantDto) {
+        if (participantDto.getNickName() == "" | participantDto.getNickName().length()>10 ) {
+            return ResponseEntity.badRequest().body("this empty nickName is not allowed ");
+        } else {
+            for (Participant participant1 : findParticipantsByEventId(participantDto.getEventId())) {
+                if (participant1.getNickName().equals(participantDto.getNickName())) {
+                    return ResponseEntity.badRequest().body("this nickName participant already exists for this event");
+                }
+            }
 
-        return participantMapper.toDto(participant);
+            Participant participant = participantRepository.save(participantMapper.toEntity(participantDto));
+
+            return ResponseEntity.ok(participantMapper.toDto(participant));
+        }
     }
 
     @Override
@@ -39,8 +47,20 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public List<Participant> findParticipantsByEventId(Long eventId){
-        System.out.println("dans mon service :" + participantRepository.findParticipantsByEventId(eventId));
+
         return participantRepository.findParticipantsByEventId(eventId);
     };
+
+    @Override
+    public Boolean deleteParticipant(Long participantId) {
+
+
+        if (participantRepository.existsById(participantId)) {
+            participantRepository.deleteById(participantId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
