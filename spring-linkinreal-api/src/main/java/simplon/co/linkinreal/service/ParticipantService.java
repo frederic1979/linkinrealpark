@@ -11,9 +11,12 @@ import java.util.List;
 public interface ParticipantService {
 
 
+
     ResponseEntity<?> createParticipant(ParticipantDto participant);
 
     List<Participant> getParticipant();
 
     List<Participant> findParticipantsByEventId(Long eventId);
+
+    Boolean deleteParticipant(Long participantId);
 }

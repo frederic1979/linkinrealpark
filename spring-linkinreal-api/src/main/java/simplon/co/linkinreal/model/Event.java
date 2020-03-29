@@ -26,16 +26,16 @@ public class Event {
 
 
     @JsonIgnore
-    @OneToMany (mappedBy = "event")
+    @OneToMany (mappedBy = "event",cascade = CascadeType.ALL)
     private List<Participant> participants = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne/*(cascade = CascadeType.ALL)*/
     private Creator creator;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne/*(cascade = CascadeType.ALL)*/
     private EventCategory eventCategory;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne/*(cascade = CascadeType.ALL)*/
     private Place place;
 
 

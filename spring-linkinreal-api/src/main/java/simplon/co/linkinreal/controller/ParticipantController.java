@@ -20,14 +20,14 @@ public class ParticipantController {
 
 
     @GetMapping
-    public List<Participant> getParticipant(){
+    public List<Participant> getParticipant() {
         return participantService.getParticipant();
     }
 
 
     @GetMapping("/{eventId}")
-    public List<Participant> getParticipantsByEventId(@PathVariable Long eventId){
-        System.out.println("dans mon controller"+participantService.findParticipantsByEventId(eventId));
+    public List<Participant> getParticipantsByEventId(@PathVariable Long eventId) {
+        System.out.println("dans mon controller" + participantService.findParticipantsByEventId(eventId));
         return participantService.findParticipantsByEventId(eventId);
     }
 
@@ -40,5 +40,14 @@ public class ParticipantController {
         }
     }
 
+    @DeleteMapping("{participantId}")
+    public ResponseEntity<Participant> deleteEvent(@PathVariable Long participantId) {
+        if (participantService.deleteParticipant(participantId)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 
 }

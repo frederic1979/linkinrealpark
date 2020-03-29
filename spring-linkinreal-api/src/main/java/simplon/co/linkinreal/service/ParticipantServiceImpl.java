@@ -35,7 +35,6 @@ public class ParticipantServiceImpl implements ParticipantService {
             }
 
             Participant participant = participantRepository.save(participantMapper.toEntity(participantDto));
-            System.out.println("participantDto.getEventId()   :" + participantDto.getEventId());
 
             return ResponseEntity.ok(participantMapper.toDto(participant));
         }
@@ -48,8 +47,20 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public List<Participant> findParticipantsByEventId(Long eventId){
-        System.out.println("dans mon service :" + participantRepository.findParticipantsByEventId(eventId));
+
         return participantRepository.findParticipantsByEventId(eventId);
     };
+
+    @Override
+    public Boolean deleteParticipant(Long participantId) {
+
+
+        if (participantRepository.existsById(participantId)) {
+            participantRepository.deleteById(participantId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

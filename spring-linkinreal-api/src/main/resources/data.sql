@@ -37,7 +37,7 @@ insert into event (id, date, description, participant_nb, creator_id, event_cate
 insert into event (id, date, description, participant_nb, creator_id, event_category_id, place_id) values (event_seq_id.nextval, '2020-02-07T12:45:30', 'rtyrh !', 0, 1, 1 ,1);
 
 
-insert into participant (id, nick_name,event_id) values (participant_seq_id.nextval, 'kiki',1);
+/*insert into participant (id, nick_name,event_id) values (participant_seq_id.nextval, 'kiki',1);
 insert into participant (id, nick_name,event_id) values (participant_seq_id.nextval, 'lolo',1);
 insert into participant (id, nick_name,event_id) values (participant_seq_id.nextval, 'juju',1);
-insert into participant (id, nick_name,event_id) values (participant_seq_id.nextval, 'tyty',1);
+insert into participant (id, nick_name,event_id) values (participant_seq_id.nextval, 'tyty',1);*/
