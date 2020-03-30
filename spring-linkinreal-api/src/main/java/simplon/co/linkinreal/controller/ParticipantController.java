@@ -27,7 +27,7 @@ public class ParticipantController {
 
     @GetMapping("/{eventId}")
     public List<Participant> getParticipantsByEventId(@PathVariable Long eventId) {
-        System.out.println("dans mon controller" + participantService.findParticipantsByEventId(eventId));
+
         return participantService.findParticipantsByEventId(eventId);
     }
 

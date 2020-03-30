@@ -107,6 +107,7 @@ public class EventServiceImpl implements EventService {
             we search for the specific object EventCategory in DB with its specific Id
              and affect it to the EventCategory of the Event we want to create*/
             if (optionalEventCategory.isPresent()){
+
                 EventCategory eventCategoryToUpdate = optionalEventCategory.get();
                 eventToPersist.setEventCategory(eventCategoryToUpdate);
             } else {
@@ -114,6 +115,7 @@ public class EventServiceImpl implements EventService {
             }
             /* idem if the creator is already existing in Database */
             if (optionalCreator.isPresent()){
+
                 Creator creatorToUpdate = optionalCreator.get();
                 eventToPersist.setCreator(creatorToUpdate);
             } else {
@@ -121,6 +123,7 @@ public class EventServiceImpl implements EventService {
             }
             return eventRepository.save(eventToPersist);
         } else {
+
             return eventRepository.save(event);
         }
     }

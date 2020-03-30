@@ -28,13 +28,13 @@ public class Event {
     @OneToMany (mappedBy = "event",cascade = CascadeType.ALL)
     private List<Participant> participants = new ArrayList<>();
 
-    @ManyToOne/*(cascade = CascadeType.ALL)*/
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Creator creator;
 
-    @ManyToOne/*(cascade = CascadeType.ALL)*/
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private EventCategory eventCategory;
 
-    @ManyToOne/*(cascade = CascadeType.ALL)*/
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Place place;
 
 
